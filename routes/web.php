@@ -6,6 +6,7 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicNewsController;
+use App\Http\Controllers\DashboardController;
 
 // Página principal muestra todas las noticias públicas
 Route::get('/', [PublicNewsController::class, 'index'])->name('public.news.index');
@@ -24,7 +25,7 @@ Route::middleware(['auth'])->group(function () {
 // Ruta pública de detalle de noticia (debe ir después de create)
 Route::get('/news/{id}', [PublicNewsController::class, 'show'])->name('public.news.show');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

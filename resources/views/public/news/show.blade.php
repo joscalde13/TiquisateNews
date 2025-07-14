@@ -7,38 +7,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
-    <header class="bg-white shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <a href="/" class="text-2xl font-bold text-gray-900">Tiquisate News</a>
-                <a href="/login" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                    <i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión
-                </a>
-            </div>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            <a href="/" class="flex items-center gap-3 group">
+                <img src="/TiquisateNewsLogo.png" alt="TiquisateNews Logo" class="h-10 w-auto group-hover:opacity-80 transition-opacity">
+                <span class="font-bold text-xl text-blue-900 group-hover:text-blue-700 transition-colors">Tiquisate News</span>
+            </a>
+            <a href="/" class="text-blue-600 hover:underline text-sm flex items-center gap-1"><i class="fas fa-arrow-left"></i> Volver a noticias</a>
         </div>
-    </header>
-    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <nav class="mb-6">
-            <a href="/" class="text-blue-600 hover:underline"><i class="fas fa-arrow-left mr-1"></i> Volver a noticias</a>
-        </nav>
-        <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+    </nav>
+    <main class="flex-1 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        @php \Carbon\Carbon::setLocale('es'); @endphp
+        <article>
             @if($news->image)
-                <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="w-full h-96 object-cover">
-            @else
-                <div class="w-full h-96 bg-gray-200 flex items-center justify-center">
-                    <i class="fas fa-newspaper text-6xl text-gray-400"></i>
-                </div>
+                <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="w-full h-72 object-cover rounded-xl mb-8">
             @endif
-            <div class="p-8">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ $news->title }}</h1>
-                <div class="flex items-center text-sm text-gray-500 mb-6">
-                    <i class="fas fa-calendar-alt mr-2"></i>
-                    <span>{{ $news->created_at->format('d/m/Y H:i') }}</span>
-                </div>
-                <div class="prose max-w-none text-gray-800 mb-8">
-                    {!! nl2br(e($news->description)) !!}
-                </div>
+            <h1 class="text-3xl font-extrabold text-blue-900 mb-4 leading-tight">{{ $news->title }}</h1>
+            <div class="flex items-center text-sm text-gray-500 mb-8">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                <span>{{ $news->created_at->diffForHumans() }}</span>
+            </div>
+            <div class="prose max-w-none text-gray-800 mb-8 break-words overflow-x-auto max-w-full text-xl leading-relaxed font-serif" style="color:#232323">
+                {!! nl2br(e($news->description)) !!}
             </div>
         </article>
     </main>
