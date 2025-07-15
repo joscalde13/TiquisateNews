@@ -83,7 +83,7 @@
     </main>
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p>&copy; 2024 Tiquisate News. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Tiquisate News. Todos los derechos reservados.</p>
             <div class="mt-4 flex justify-center gap-4">
                 <a href="https://www.facebook.com/share/1EAFvvdoMb/?mibextid=wwXIfr" target="_blank" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-200 transition-colors">
                     <i class="fab fa-facebook-square text-2xl"></i> Facebook
