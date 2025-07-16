@@ -17,12 +17,12 @@
 
     <!-- Minimalist Navbar -->
     <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center py-3 sm:py-0 sm:h-16">
             <div class="flex items-center gap-3">
                 <img src="/TiquisateNewsLogo.png" alt="TiquisateNews Logo" class="h-10 w-auto">
                 <span class="font-bold text-xl text-blue-900">Tiquisate News</span>
             </div>
-            <div class="flex gap-6 text-sm font-medium">
+            <div class="flex gap-x-6 gap-y-2 text-sm font-medium mt-3 sm:mt-0 flex-wrap justify-center">
                 <a href="#sobre-nosotros" class="text-gray-700 hover:text-blue-700 transition-colors">Sobre Nosotros</a>
                 <a href="login" class="hover:text-blue-700 transition-colors">Login</a>
             </div>
