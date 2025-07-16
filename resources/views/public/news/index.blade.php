@@ -8,7 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
+
+
+
+
 <body class="bg-gray-50 min-h-screen flex flex-col">
+
     <!-- Minimalist Navbar -->
     <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
@@ -18,16 +24,21 @@
             </div>
             <div class="flex gap-6 text-sm font-medium">
                 <a href="#sobre-nosotros" class="text-gray-700 hover:text-blue-700 transition-colors">Sobre Nosotros</a>
-
+                <a href="login" class="hover:text-blue-700 transition-colors">Login</a>
             </div>
         </div>
     </nav>
+
+
+    
     <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h2 class="text-3xl font-extrabold text-blue-900 mb-8 text-center tracking-tight">Noticias Recientes</h2>
         @php \Carbon\Carbon::setLocale('es'); @endphp
         @if($news->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($news as $item)
+
+
                     <a href="{{ route('public.news.show', $item->id) }}" class="block group bg-white rounded-xl shadow hover:shadow-lg border border-gray-100 hover:bg-blue-50 transition-all min-h-[340px] flex flex-col cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">
                         @if($item->image)
                             <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-t-xl group-hover:scale-105 group-hover:opacity-70 transition-transform transition-opacity duration-300">
@@ -36,24 +47,38 @@
                                 <i class="fas fa-newspaper text-4xl text-blue-400"></i>
                             </div>
                         @endif
+
+                        
                         <div class="p-5 flex flex-col flex-1 justify-between">
+
+
                             <div>
                                 <h3 class="text-lg font-bold text-blue-900 mb-1 group-hover:text-blue-700 transition-colors">{{ $item->title }}</h3>
                                 <p class="text-gray-700 text-base mb-3 line-clamp-3 font-serif leading-relaxed" style="color:#232323">{{ Str::limit($item->description, 120) }}</p>
                             </div>
+
                             <div class="flex justify-between items-center mt-2">
+
                                 <span class="text-xs text-gray-500">
                                     {{ $item->created_at->diffForHumans() }}<br>
                                     <span class="text-[11px] text-gray-400">({{ $item->created_at->format('d/m/Y') }})</span>
                                 </span>
+
                                 <span class="px-4 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold shadow hover:bg-blue-700 transition-colors pointer-events-none">
                                     Leer noticia <i class="fas fa-arrow-right"></i>
                                 </span>
+                                
                             </div>
+
+
                         </div>
                     </a>
                 @endforeach
+
             </div>
+
+
+
             <div class="mt-10 flex justify-center">
                 {{ $news->links() }}
             </div>
@@ -64,6 +89,8 @@
                 <p class="text-gray-500">Pronto tendremos nuevas noticias para ti.</p>
             </div>
         @endif
+
+        
         <!-- Secciones del menú -->
         <section id="sobre-nosotros" class="mt-20 max-w-3xl mx-auto text-center">
             <h3 class="text-2xl font-bold text-blue-900 mb-2">Sobre Nosotros</h3>
