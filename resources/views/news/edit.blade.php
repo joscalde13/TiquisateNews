@@ -35,17 +35,25 @@
                                   class="mt-1 block w-full bg-gray-700 border-gray-600 text-gray-200 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">{{ old('description', $news->description) }}</textarea>
                     </div>
 
-                    @if ($news->image)
-                        <div class="mb-6">
-                            <p class="block text-sm font-medium text-gray-300 mb-2">Imagen actual</p>
-                            <img src="{{ asset('storage/' . $news->image) }}" width="200" class="rounded-lg">
-                        </div>
-                    @endif
-
                     <div>
                         <label for="image" class="block text-sm font-medium text-gray-300">Cambiar Imagen Principal</label>
                         <input type="file" name="image" id="image"
                                class="mt-1 block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-blue-200 hover:file:bg-blue-800">
+                    </div>
+
+                    <div class="mt-6">
+                        <label class="block text-sm font-medium text-gray-300">Previsualización</label>
+                        <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <img id="image-preview" src="{{ $news->image ? asset('uploads/' . $news->image) : '' }}" alt="Previsualización de la imagen" class="mx-auto h-48 w-auto object-cover {{ $news->image ? '' : 'hidden' }}">
+                                <div id="image-placeholder" class="text-gray-500 {{ $news->image ? 'hidden' : '' }}">
+                                    <svg class="mx-auto h-12 w-12" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <p class="mt-2">Sube una imagen para ver la previsualización</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="pt-4 text-right">
@@ -57,4 +65,25 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        document.getElementById('image').addEventListener('change', function(event) {
+            const preview = document.getElementById('image-preview');
+            const placeholder = document.getElementById('image-placeholder');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    @endpush
 </x-layouts.app>

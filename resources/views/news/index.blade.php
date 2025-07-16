@@ -18,7 +18,7 @@
                 <div class="group bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden">
                     @if ($item->image)
                         <div class="h-48">
-                            <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                            <img src="{{ asset('uploads/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                         </div>
                     @endif
                     <div class="p-6">

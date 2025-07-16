@@ -22,7 +22,7 @@
         @php \Carbon\Carbon::setLocale('es'); @endphp
         <article>
             @if($news->image)
-                <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="w-full h-72 object-cover rounded-xl mb-8">
+                <img src="{{ asset('uploads/' . $news->image) }}" alt="{{ $news->title }}" class="w-full h-72 object-cover rounded-xl mb-8">
             @endif
             <h1 class="text-3xl font-extrabold text-blue-900 mb-4 leading-tight">{{ $news->title }}</h1>
             <div class="flex items-center text-sm text-gray-500 mb-8">
@@ -36,8 +36,8 @@
     </main>
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p>&copy; 2024 Tiquisate News. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Tiquisate News. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>
-</html> 
+</html>

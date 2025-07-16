@@ -30,15 +30,17 @@ class NewsController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $imagePath = null;
+        $imageName = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('news_images', 'public');
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
         }
 
         News::create([
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $imagePath,
+            'image' => $imageName,
         ]);
 
         return redirect()->route('news.index')->with('success', 'Noticia creada exitosamente.');
@@ -61,11 +63,14 @@ class NewsController extends Controller
 
         if ($request->hasFile('image')) {
             // Eliminar imagen anterior si existe
-            if ($news->image) {
-                Storage::disk('public')->delete($news->image);
+            if ($news->image && file_exists(public_path('uploads/' . $news->image))) {
+                unlink(public_path('uploads/' . $news->image));
             }
 
-            $news->image = $request->file('image')->store('news_images', 'public');
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+            $news->image = $imageName;
         }
 
         $news->title = $request->title;
@@ -78,8 +83,8 @@ class NewsController extends Controller
     // Eliminar noticia
     public function destroy(News $news)
     {
-        if ($news->image) {
-            Storage::disk('public')->delete($news->image);
+        if ($news->image && file_exists(public_path('uploads/' . $news->image))) {
+            unlink(public_path('uploads/' . $news->image));
         }
 
         $news->delete();
