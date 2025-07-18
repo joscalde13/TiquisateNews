@@ -41,7 +41,7 @@
 
                     <a href="{{ route('public.news.show', $item->id) }}" class="block group bg-white rounded-xl shadow hover:shadow-lg border border-gray-100 hover:bg-blue-50 transition-all min-h-[340px] flex flex-col cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">
                         @if($item->image)
-                            <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-t-xl group-hover:scale-105 group-hover:opacity-70 transition-transform transition-opacity duration-300">
+                            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-t-xl group-hover:scale-105 group-hover:opacity-70 transition-transform transition-opacity duration-300">
                         @else
                             <div class="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-t-xl">
                                 <i class="fas fa-newspaper text-4xl text-blue-400"></i>

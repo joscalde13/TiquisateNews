@@ -22,7 +22,7 @@
         @php \Carbon\Carbon::setLocale('es'); @endphp
         <article>
             @if($news->image)
-                <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="w-full ">
+                <img src="{{ Storage::url($news->image) }}" alt="{{ $news->title }}" class="w-full ">
             @endif
             <h1 class="text-3xl font-extrabold text-blue-900 mb-4 leading-tight">{{ $news->title }}</h1>
             <div class="flex items-center text-sm text-gray-500 mb-8">
