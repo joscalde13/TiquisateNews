@@ -28,7 +28,7 @@
                     <span class="font-bold text-xl text-blue-900">Tiquisate News</span>
                 </div>
 
-                <!-- Navigation links centrados -->
+                
                 <div class="hidden md:flex gap-8 text-sm font-medium absolute left-1/2 transform -translate-x-1/2">
                     <a href="#inicio" class="text-gray-700 hover:text-blue-700 transition-colors">Inicio</a>
                     <a href="#noticias" class="text-gray-700 hover:text-blue-700 transition-colors">Noticias</a>
@@ -37,7 +37,7 @@
                     <a href="#locales" class="text-gray-700 hover:text-blue-700 transition-colors">Locales</a>
                 </div>
 
-                <!-- Login button -->
+               
                 <div class="hidden md:flex flex-shrink-0">
                     <a href="login" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Login</a>
                 </div>
@@ -110,30 +110,57 @@
     <main id="noticias" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 class="text-3xl font-extrabold text-blue-900 mb-8 text-center tracking-tight">Noticias Recientes</h2>
         
-        <!-- Simulando noticias para la demo -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Noticia de ejemplo -->
-            <div class="block group bg-white rounded-xl shadow hover:shadow-lg border border-gray-100 hover:bg-blue-50 transition-all min-h-[340px] flex flex-col cursor-pointer">
-                <div class="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-t-xl">
-                    <i class="fas fa-newspaper text-4xl text-blue-400"></i>
-                </div>
-                <div class="p-5 flex flex-col flex-1 justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-blue-900 mb-1 group-hover:text-blue-700 transition-colors">Noticia de Ejemplo</h3>
-                        <p class="text-gray-700 text-base mb-3 line-clamp-3 leading-relaxed">Esta es una noticia de ejemplo para mostrar cómo se ve el diseño con el navbar centrado.</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-2">
-                        <span class="text-xs text-gray-500">
-                            Hace 2 horas<br>
-                            <span class="text-[11px] text-gray-400">(21/07/2025)</span>
-                        </span>
-                        <span class="px-4 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold shadow hover:bg-blue-700 transition-colors pointer-events-none">
-                            Leer noticia <i class="fas fa-arrow-right"></i>
-                        </span>
-                    </div>
-                </div>
+        @php \Carbon\Carbon::setLocale('es'); @endphp
+        @if($news->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($news as $item)
+
+                    <a href="{{ route('public.news.show', $item->id) }}" class="block group bg-white rounded-xl shadow hover:shadow-lg border border-gray-100 hover:bg-blue-50 transition-all min-h-[340px] flex flex-col cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">
+                        @if($item->image)
+                            <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-t-xl group-hover:scale-105 group-hover:opacity-70 transition-transform transition-opacity duration-300">
+                        @else
+                            <div class="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-t-xl">
+                                <i class="fas fa-newspaper text-4xl text-blue-400"></i>
+                            </div>
+                        @endif
+
+                        
+                        <div class="p-5 flex flex-col flex-1 justify-between">
+
+                            <div>
+                                <h3 class="text-lg font-bold text-blue-900 mb-1 group-hover:text-blue-700 transition-colors">{{ $item->title }}</h3>
+                                <p class="text-gray-700 text-base mb-3 line-clamp-3 leading-relaxed" style="color:#232323">{{ Str::limit($item->description, 120) }}</p>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-2">
+
+                                <span class="text-xs text-gray-500">
+                                    {{ $item->created_at->diffForHumans() }}<br>
+                                    <span class="text-[11px] text-gray-400">({{ $item->created_at->format('d/m/Y') }})</span>
+                                </span>
+
+                                <span class="px-4 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold shadow hover:bg-blue-700 transition-colors pointer-events-none">
+                                    Leer noticia <i class="fas fa-arrow-right"></i>
+                                </span>
+                                
+                            </div>
+
+                        </div>
+                    </a>
+                @endforeach
+
             </div>
-        </div>
+
+            <div class="mt-10 flex justify-center">
+                {{ $news->links() }}
+            </div>
+        @else
+            <div class="text-center py-12">
+                <i class="fas fa-newspaper text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">No hay noticias disponibles</h3>
+                <p class="text-gray-500">Pronto tendremos nuevas noticias para ti.</p>
+            </div>
+        @endif
 
       
         <section id="sobre-nosotros" class="mt-20 max-w-3xl mx-auto text-center">
